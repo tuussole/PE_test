@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>ClientAccount</title>
+</head>
+<body>
+<h1 align="center">Current Client</h1>
+<div>
+    <table align="center" width="600" style="font-size: larger">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Date od birth</th>
+            <th>Id Number</th>
+        </tr>
+        </thead>
+        <tbody align="center">
+            <td th:text="${client.getFirstName()}">...</td>
+            <td th:text="${client.getLastName()}">...</td>
+            <td th:text="${client.getDob()}">...</td>
+            <td th:text="${client.getIdCard()}">...</td>
+        </tbody>
+    </table>
+    <h2 align="center">Account Details</h2>
+    <div>
+        <table border="1" width="600" align="center">
+            <thead>
+            <tr>
+                <th>Account No</th>
+                <th>Assets</th>
+            </tr>
+            </thead>
+            <tbody align="center">
+            <tr th:each ="account : ${accountList}">
+                <td th:text="${account.getAccountNumber()}">...</td>
+                <td th:text="${account.getAssets()}">...</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <h2></h2>
+    <div align="center" >
+        <form action="/client_account/add" method="post">
+            <input type="hidden" name="id" th:value="${client.id}"/>
+            <button type="submit">Add account</button>
+        </form>
+    </div>
+    <h3 align="center">Transfer funds between accounts</h3>
+    <div align="center" >
+        <form action="/client_account" method="post">
+            Sender Acc:
+            <input type="text" name="sender_id" />
+            Receipt Acc:
+            <input type="text" name="recipient_id" />
+            Amount:
+            <input type="text" name="amount" />
+            <button type="submit">Transfer</button>
+        </form>
+    </div>
+        <br/>
+    <h3 align="center">Fund account</h3>
+    <div align="center" >
+        <form action="/client_account/fund" method="post">
+            Receipt Acc:
+            <input type="text" name="recipient_id" />
+            Amount:
+            <input type="text" name="amount" />
+            <button type="submit">Fund Account</button>
+        </form>
+    </div>
+    <br/>
+    <h3 align="center">Withdraw cash</h3>
+    <div align="center" >
+        <form action="/client_account/withdraw" method="post">
+            Account Number:
+            <input type="text" name="sender_id" />
+            Amount:
+            <input type="text" name="amount" />
+            <button type="submit">Withdraw</button>
+        </form>
+    </div>
+    <br/>
+<h1></h1>
+</div>
+    <td align="center">
+        <a th:href="@{/clients}"><h3>Return to Clients</h3></a>
+    </td>
+<h1></h1>
+<td align="center">
+    <a th:href="@{/transactions}"><h3>Open Transactions</h3></a>
+</td>
+</body>
+</html>

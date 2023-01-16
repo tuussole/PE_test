@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Transactions</title>
+</head>
+<body>
+<h1 align="center">Filter by date</h1>
+<div align="center" >
+    <form action="/transactions/filter" method="GET">
+        From:
+        <input type="date" th:value="1901-01-01" name="from" />
+        To:
+        <input type="date" th:value="${#dates.createToday()}" name="to" />
+        <button type="submit">Filter</button>
+    </form>
+</div>
+<h1 align="center">Transactions</h1>
+<div>
+    <table border="1" align="center">
+        <thead>
+        <tr>
+            <th>Account Sender</th>
+            <th>Account Recipient</th>
+            <th>Amount</th>
+            <th>Type of operation</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each ="transaction : ${transactions}">
+            <td th:text="${transaction.sender.accountNumber}">...</td>
+            <td th:text="${transaction.recipient.accountNumber}">...</td>
+            <td th:text="${transaction.getCashAmount()}">...</td>
+            <td th:text="${transaction.getOpType()}">...</td>
+            <td th:text="${transaction.getDateOfTransaction()}">...</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<h1></h1>
+<td align="center">
+    <a th:href="@{/clients}"><h3>Return to Clients</h3></a>
+</td>
+</body>
+</html>

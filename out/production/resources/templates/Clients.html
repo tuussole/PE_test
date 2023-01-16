@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Clients</title>
+</head>
+<body>
+    <h1 align="center">Clients</h1>
+    <div>
+        <table border="1" align="center">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date od birth</th>
+                    <th>Id Number</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each ="client : ${clients}">
+                    <td>
+                        <a th:href="@{'/client_account/' + ${client.getId()}}" th:text="${client.getFirstName()}"></a>
+                    </td>
+                    <td>
+                        <a th:href="@{'/client_account/' + ${client.getId()}}" th:text="${client.getLastName()}"></a>
+                    </td>
+                    <td th:text="${client.getDob()}">...</td>
+                    <td th:text="${client.getIdCard()}">...</td>
+                    <td th:text="${clientModel.getTotal(client)}">...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br/>
+    <h2 align="center">Add Client</h2>
+    <div align="center">
+        <form action="#" th:action="@{/clients}" th:object="${client}" method="POST">
+            First Name:
+            <input type="text" th:field="*{firstName}" />
+            Last Name:
+            <input type="text" th:field="*{lastName}" />
+            Date of Birth:
+            <input type="date" th:value="1901-01-01" th:field="*{dob}" />
+            Identification number:
+            <input type="text" th:field="*{idCard}" />
+            <br/>
+            <br/>
+            <input type="submit" value="Create" />
+        </form>
+        <br/>
+    </div>
+    <br/>
+    <td align="center">
+        <a th:href="@{/transactions}"><h3>Open Transactions</h3></a>
+    </td>
+</body>
+</html>
